@@ -1,3 +1,4 @@
+import { FieldError, FieldErrorsImpl } from 'react-hook-form';
 import styled from 'styled-components';
 
 const StyledFormRow = styled.div`
@@ -36,12 +37,18 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-export default function FormRow({ label, error, children }) {
+type FormRowProps = {
+  label?: string;
+  children: React.ReactElement;
+  error?: string | FieldError | FieldErrorsImpl | undefined;
+};
+
+export default function FormRow({ label, error, children }: FormRowProps) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && <Label htmlFor={children?.props?.id}>{label}</Label>}
       {children}
-      {error && <Error>{error}</Error>}
+      {error && <Error>{error as string}</Error>}
     </StyledFormRow>
   );
 }

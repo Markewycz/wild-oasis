@@ -72,6 +72,11 @@ export default function CabinRow({ cabin }: CabinRowProps) {
     onError: (err: Error) => toast.error(err.message),
   });
 
+  function handleDelete() {
+    if (!cabinId) return;
+    mutate(cabinId);
+  }
+
   return (
     <TableRow role="row">
       <Img src={image} />
@@ -79,7 +84,7 @@ export default function CabinRow({ cabin }: CabinRowProps) {
       <div>Fits up to {maxCapacity}</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
-      <button onClick={() => mutate(cabinId)} disabled={isLoading}>
+      <button onClick={handleDelete} disabled={isLoading}>
         Delete
       </button>
     </TableRow>

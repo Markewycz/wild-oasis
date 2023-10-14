@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import styled from 'styled-components';
 import { getCabins } from '../../services/apiCabins';
+import styled from 'styled-components';
 import Spinner from '../../ui/Spinner';
 import CabinRow from './CabinRow';
 
 const Table = styled.div`
-  border: 1px solid var(--color-grey-200);
+  border: 1px solid var(--color-grey-200); 
 
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
@@ -33,7 +33,7 @@ export type Cabin = {
   description: string;
   discount: number;
   id?: number;
-  image: string;
+  image: File;
   maxCapacity: number;
   name: string;
   regularPrice: number;
@@ -43,7 +43,6 @@ export default function CabinTable() {
   const {
     data: cabins,
     isLoading,
-    error,
   } = useQuery({
     queryKey: ['cabins'],
     queryFn: getCabins,
