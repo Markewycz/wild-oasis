@@ -21,17 +21,23 @@ export async function deleteCabin(id: number) {
   }
 }
 
-export async function createCabin(newCabin: Cabin) {
+export async function createEditCabin(newCabin: Cabin, id?: number) {
+  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
   const imageName = `${Math.random()}-${newCabin.image.name}`.replace('/', '');
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  const imagePath = hasImagePath
+    ? newCabin.image
+    : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
-  console.log(imageName);
-  console.log(imagePath);
-  console.log(newCabin);
+  // Create/edit cabin
+  let query = supabase.from('cabins');
 
-  const { error } = await supabase
-    .from('cabins')
-    .insert([{ ...newCabin, image: imagePath }]);
+  // CREATE
+  if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
+
+  // EDIT
+  if (id) query = query.update({ ...newCabin, image: imagePath }).eq('id', id);
+
+  const { data, error } = await query.select().single();
 
   if (error) {
     console.error(error);
@@ -53,4 +59,6 @@ export async function createCabin(newCabin: Cabin) {
       'Cabin image count not be uploaded and the cabin was not created'
     );
   }
+
+  return data;
 }
