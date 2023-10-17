@@ -7,7 +7,8 @@ import FileInput from '../../ui/FileInput';
 import Textarea from '../../ui/Textarea';
 import FormRow from '../../ui/FormRow';
 import { useCreateCabin } from './useCreateCabin';
-import { useEditCabin } from './useEditCabin';
+import { useUpdateCabin } from './useUpdateCabin';
+import { useSettings } from '../settings/useSettings';
 
 type CabinForm = {
   description: string;
@@ -18,17 +19,19 @@ type CabinForm = {
   regularPrice: number;
 };
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToUpdate = {} }) {
   const { createCabin, isCreating } = useCreateCabin();
-  const { editCabin, isEditing } = useEditCabin();
-  const isWorking = isCreating || isEditing;
-  
-  const { id: editId, ...editValues } = cabinToEdit;
-  const isEditSession = Boolean(editId);
+  const { updateCabin, isUpdating } = useUpdateCabin();
+  const isWorking = isCreating || isUpdating;
+
+  const { settings: { maxGuestsPerBooking } = {} } = useSettings();
+
+  const { id: updateId, ...updateValues } = cabinToUpdate;
+  const isUpdateSession = Boolean(updateId);
 
   const { register, handleSubmit, reset, getValues, formState } =
     useForm<CabinForm>({
-      defaultValues: isEditSession ? editValues : {},
+      defaultValues: isUpdateSession ? updateValues : {},
     });
   const { errors } = formState;
 
@@ -37,11 +40,8 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     // }
     const image = typeof data.image === 'string' ? data.image : data.image[0];
 
-    if (isEditSession) {
-      editCabin(
-        { newCabinData: { ...data, image }, id: editId },
-        { onSuccess: () => reset() }
-      );
+    if (isUpdateSession) {
+      updateCabin({ newCabinData: { ...data, image }, id: updateId });
     } else {
       createCabin(
         { ...data, image: data.image[0] },
@@ -77,6 +77,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
             min: {
               value: 1,
               message: 'Capacity should be at least 1',
+            },
+            max: {
+              value: maxGuestsPerBooking,
+              message: `Maximum guests per booking is ${maxGuestsPerBooking}`,
             },
           })}
         />
@@ -130,7 +134,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="image"
           accept="image/*"
           {...register('image', {
-            required: isEditSession ? false : 'This field is required',
+            required: isUpdateSession ? false : 'This field is required',
           })}
         />
       </FormRow>
@@ -141,7 +145,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
             Cancel
           </Button>
           <Button disabled={isWorking}>
-            {isEditSession ? 'Edit cabin' : 'Create new cabin'}
+            {isUpdateSession ? 'Update cabin' : 'Create new cabin'}
           </Button>
         </>
       </FormRow>
