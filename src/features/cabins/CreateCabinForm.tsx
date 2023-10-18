@@ -19,7 +19,7 @@ type CabinForm = {
   regularPrice: number;
 };
 
-function CreateCabinForm({ cabinToUpdate = {} }) {
+function CreateCabinForm({ cabinToUpdate = {}, onCloseModal }) {
   const { createCabin, isCreating } = useCreateCabin();
   const { updateCabin, isUpdating } = useUpdateCabin();
   const isWorking = isCreating || isUpdating;
@@ -41,11 +41,23 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
     const image = typeof data.image === 'string' ? data.image : data.image[0];
 
     if (isUpdateSession) {
-      updateCabin({ newCabinData: { ...data, image }, id: updateId });
+      updateCabin(
+        { newCabinData: { ...data, image }, id: updateId },
+        {
+          onSuccess: () => {
+            onCloseModal?.();
+          },
+        }
+      );
     } else {
       createCabin(
         { ...data, image: data.image[0] },
-        { onSuccess: () => reset() }
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
       );
     }
   };
@@ -55,7 +67,10 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? 'modal' : 'regular'}
+    >
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -141,7 +156,11 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
 
       <FormRow>
         <>
-          <Button variation="secondary" type="reset">
+          <Button
+            variation="secondary"
+            type="reset"
+            onClick={() => onCloseModal?.()}
+          >
             Cancel
           </Button>
           <Button disabled={isWorking}>
