@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ChangeEvent } from 'react';
 import Select from './Select';
 
-type Option = {
+export type Option = {
   value: string;
   label: string;
 };

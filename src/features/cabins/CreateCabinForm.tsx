@@ -1,5 +1,3 @@
-import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
-
 import Input from '../../ui/Input';
 import Form from '../../ui/Form';
 import Button from '../../ui/Button';
@@ -9,17 +7,27 @@ import FormRow from '../../ui/FormRow';
 import { useCreateCabin } from './useCreateCabin';
 import { useUpdateCabin } from './useUpdateCabin';
 import { useSettings } from '../settings/useSettings';
+import { Cabin } from './CabinTable';
+import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 
 type CabinForm = {
   description: string;
   discount: number;
-  image: File;
+  image: FileList;
   maxCapacity: number;
   name: string;
   regularPrice: number;
 };
 
-function CreateCabinForm({ cabinToUpdate = {}, onCloseModal }) {
+type CreateCabinFormProps = {
+  cabinToUpdate?: Cabin | object;
+  onCloseModal?: () => void;
+};
+
+function CreateCabinForm({
+  cabinToUpdate = {},
+  onCloseModal,
+}: CreateCabinFormProps) {
   const { createCabin, isCreating } = useCreateCabin();
   const { updateCabin, isUpdating } = useUpdateCabin();
   const isWorking = isCreating || isUpdating;
@@ -35,10 +43,9 @@ function CreateCabinForm({ cabinToUpdate = {}, onCloseModal }) {
     });
   const { errors } = formState;
 
-  const onSubmit: SubmitHandler<CabinForm> = data => {
-    // if (data.image instanceof FileList) {
-    // }
-    const image = typeof data.image === 'string' ? data.image : data.image[0];
+  const onSubmit: SubmitHandler<CabinForm> = (data: CabinForm) => {
+    const image: string | File =
+      typeof data.image === 'string' ? data.image : data.image[0];
 
     if (isUpdateSession) {
       updateCabin(

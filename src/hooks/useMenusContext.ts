@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react';
 
 type MenusContextTypes = {
-  openId: string | null;
+  openId: number | null | undefined;
   close: () => void;
-  open: React.Dispatch<React.SetStateAction<string | null>>;
+  open: React.Dispatch<React.SetStateAction<number | null | undefined>>;
   position: { x: number; y: number } | null;
   setPosition: React.Dispatch<
     React.SetStateAction<{ x: number; y: number } | null>

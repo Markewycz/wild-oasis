@@ -1,10 +1,8 @@
 import styled from 'styled-components';
+import { Option } from './SortBy';
+import { ChangeEvent } from 'react';
 
-type SelectProps = {
-  type: string;
-};
-
-const StyledSelect = styled.select<SelectProps>`
+const StyledSelect = styled.select<StyledSelectProps>`
   font-size: 1.4rem;
   padding: 0.8rem 1.2rem;
   border: 1px solid
@@ -18,7 +16,25 @@ const StyledSelect = styled.select<SelectProps>`
   box-shadow: var(--shadow-sm);
 `;
 
-export default function Select({ options, value, onChange, ...props }) {
+type StyledSelectProps = {
+  type: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+type SelectProps = {
+  type: string;
+  options: Option[];
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export default function Select({
+  options,
+  value,
+  onChange,
+  ...props
+}: SelectProps) {
   return (
     <StyledSelect value={value} onChange={onChange} {...props}>
       {options.map(option => (

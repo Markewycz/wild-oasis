@@ -10,7 +10,7 @@ import ConfirmDelete from '../../ui/ConfirmDelete';
 import Table from '../../ui/Table';
 import Menus from '../../ui/Menus';
 
-const Img = styled.img`
+const Img = styled.img<{ src: string }>`
   display: block;
   width: 6.4rem;
   aspect-ratio: 3 / 2;
@@ -37,13 +37,17 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
+export interface CabinUpdate extends CabinType {
+  image: string;
+}
+
 type CabinRowProps = {
-  cabin: CabinType;
+  cabin: CabinUpdate;
 };
 
 export default function CabinRow({ cabin }: CabinRowProps) {
   const { isLoading, deleteCabin } = useDeleteCabin();
-  const { createCabin, isCreating } = useCreateCabin();
+  const { createCabin } = useCreateCabin();
 
   const {
     id: cabinId,

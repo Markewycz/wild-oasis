@@ -81,22 +81,22 @@ type MenusProps = {
 };
 
 type ToggleProps = {
-  id: string;
+  id: number | undefined;
 };
 
 type ListProps = {
   children: React.ReactNode;
-  id: string;
+  id: number | undefined;
 };
 
 type ButtonProps = {
   children: string;
   icon: React.ReactElement;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export default function Menus({ children }: MenusProps) {
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<number | null | undefined>(null);
   const [position, setPosition] = useState<{ x: number; y: number } | null>(
     null
   );
@@ -122,7 +122,7 @@ function Toggle({ id }: ToggleProps) {
       y: rect.y + rect.height + 8,
     });
 
-    openId === '' || openId !== id ? open(id) : close();
+    openId === null || openId !== id ? open(id) : close();
   }
 
   return (
@@ -147,7 +147,6 @@ function List({ id, children }: ListProps) {
 }
 
 function Button({ children, icon, onClick }: ButtonProps) {
-  // const { close } = useContext(MenusContext);
   const { close } = useMenusContext();
 
   function handleClick() {

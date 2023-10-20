@@ -1,20 +1,20 @@
 import { useSearchParams } from 'react-router-dom';
 import Spinner from '../../ui/Spinner';
-import CabinRow from './CabinRow';
+import CabinRow, { CabinUpdate } from './CabinRow';
 import { useCabins } from './useCabins';
 import Table from '../../ui/Table';
 import Menus from '../../ui/Menus';
 
-export type Cabin = {
+export interface Cabin {
   created_at?: string;
   description: string;
   discount: number;
   id?: number;
-  image: File;
+  image: string | File;
   maxCapacity: number;
   name: string;
   regularPrice: number;
-};
+}
 
 export default function CabinTable() {
   const { cabins, isLoading } = useCabins();
@@ -36,9 +36,16 @@ export default function CabinTable() {
   const sortBy = searchParams.get('sortBy') || 'startDate-asc';
   const [field, direction] = sortBy.split('-');
   const modifier = direction === 'asc' ? 1 : -1;
-  const sortedCabins = filteredCabins?.sort(
-    (a, b) => (a[field] - b[field]) * modifier
-  );
+  const sortedCabins = filteredCabins?.sort((a, b) => {
+    const fieldA = a[field as keyof Cabin];
+    const fieldB = b[field as keyof Cabin];
+
+    if (typeof fieldA === 'number' && typeof fieldB === 'number') {
+      return (fieldA - fieldB) * modifier;
+    } else {
+      return 0;
+    }
+  });
 
   return (
     <Menus>
@@ -54,7 +61,9 @@ export default function CabinTable() {
 
         <Table.Body
           data={sortedCabins}
-          render={(cabin: Cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
+          render={(cabin: CabinUpdate) => (
+            <CabinRow cabin={cabin} key={cabin.id} />
+          )}
         />
       </Table>
     </Menus>
