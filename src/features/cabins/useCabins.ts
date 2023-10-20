@@ -9,7 +9,6 @@ export function useCabins() {
   }) as {
     data: Cabin[];
     isLoading: boolean;
-    error: unknown;
   };
 
   return { cabins, isLoading };

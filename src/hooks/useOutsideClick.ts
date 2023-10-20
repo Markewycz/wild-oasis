@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react';
 
-export function useOutsideClick(handler, listenCapturing = true) {
-  const ref = useRef();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useOutsideClick(handler: any, listenCapturing = true) {
+  const ref = useRef<HTMLUListElement | null>(null);
 
   useEffect(() => {
-    function handleClick(e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function handleClick(e: any) {
       if (ref.current && !ref.current.contains(e.target)) handler();
     }
 
