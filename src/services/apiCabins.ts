@@ -1,4 +1,4 @@
-import { Cabin } from '../features/cabins/CabinTable';
+import { Cabin } from '../features/cabins/useCabins';
 import supabase, { supabaseUrl } from './supabase';
 
 export async function getCabins() {

@@ -1,5 +1,7 @@
-import { createContext, useContext } from 'react';
 import styled from 'styled-components';
+import { TableContext, useTableContext } from '../hooks/useTableContext';
+import { Cabin } from '../features/cabins/useCabins';
+import { CabinReservation } from '../features/bookings/useBookings';
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -10,7 +12,7 @@ const StyledTable = styled.div`
   overflow: hidden;
 `;
 
-const CommonRow = styled.div`
+const CommonRow = styled.div<StyledCommonRow>`
   display: grid;
   grid-template-columns: ${props => props.columns};
   column-gap: 2.4rem;
@@ -47,22 +49,34 @@ const Footer = styled.footer`
   justify-content: center;
   padding: 1.2rem;
 
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
   &:not(:has(*)) {
     display: none;
   }
 `;
 
-const Empty = styled.p`
-  font-size: 1.6rem;
-  font-weight: 500;
-  text-align: center;
-  margin: 2.4rem;
-`;
+type StyledCommonRow = {
+  columns: string | null;
+};
 
-const TableContext = createContext();
+type TableProps = {
+  columns: string;
+  children: React.ReactNode;
+};
 
-export default function Table({ columns, children }) {
+type HeaderProps = {
+  children: React.ReactNode;
+};
+
+type RowProps = {
+  children: React.ReactNode;
+};
+
+type BodyProps = {
+  data: Cabin[] | CabinReservation[];
+  render: (data: Cabin | CabinReservation) => React.ReactNode;
+};
+
+export default function Table({ columns, children }: TableProps) {
   return (
     <TableContext.Provider value={{ columns }}>
       <StyledTable role="table">{children}</StyledTable>
@@ -70,8 +84,8 @@ export default function Table({ columns, children }) {
   );
 }
 
-function Header({ children }) {
-  const { columns } = useContext(TableContext);
+function Header({ children }: HeaderProps) {
+  const { columns } = useTableContext();
 
   return (
     <StyledHeader role="row" columns={columns} as="header">
@@ -79,8 +93,8 @@ function Header({ children }) {
     </StyledHeader>
   );
 }
-function Row({ children }) {
-  const { columns } = useContext(TableContext);
+function Row({ children }: RowProps) {
+  const { columns } = useTableContext();
 
   return (
     <StyledRow role="row" columns={columns}>
@@ -88,8 +102,8 @@ function Row({ children }) {
     </StyledRow>
   );
 }
-function Body({ data, render }) {
-  if (!data) return <Empty>No data to show at the moment</Empty>;
+
+function Body({ data, render }: BodyProps) {
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
