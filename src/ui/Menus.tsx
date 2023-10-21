@@ -115,16 +115,12 @@ export default function Menus({ children }: MenusProps) {
 function Toggle({ id }: ToggleProps) {
   const { openId, close, open, setPosition } = useMenusContext();
 
-  console.log(openId);
-
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
-
-    console.log(openId, id);
 
     openId === null || openId !== id ? open(id) : close();
   }
