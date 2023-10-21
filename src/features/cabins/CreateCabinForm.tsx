@@ -20,12 +20,12 @@ type CabinForm = {
 };
 
 type CreateCabinFormProps = {
-  cabinToUpdate?: Cabin | object;
+  cabinToUpdate?: Cabin;
   onCloseModal?: () => void;
 };
 
 function CreateCabinForm({
-  cabinToUpdate = {},
+  cabinToUpdate,
   onCloseModal,
 }: CreateCabinFormProps) {
   const { createCabin, isCreating } = useCreateCabin();
@@ -34,7 +34,8 @@ function CreateCabinForm({
 
   const { settings: { maxGuestsPerBooking } = {} } = useSettings();
 
-  const { id: updateId, ...updateValues } = cabinToUpdate;
+  const { id: updateId, ...updateValues } =
+    typeof cabinToUpdate !== 'undefined' ? cabinToUpdate : { id: undefined };
   const isUpdateSession = Boolean(updateId);
 
   const { register, handleSubmit, reset, getValues, formState } =
@@ -43,11 +44,11 @@ function CreateCabinForm({
     });
   const { errors } = formState;
 
-  const onSubmit: SubmitHandler<CabinForm> = (data: CabinForm) => {
+  const onSubmit: SubmitHandler<CabinForm> = data => {
     const image: string | File =
       typeof data.image === 'string' ? data.image : data.image[0];
 
-    if (isUpdateSession) {
+    if (isUpdateSession && updateId) {
       updateCabin(
         { newCabinData: { ...data, image }, id: updateId },
         {
