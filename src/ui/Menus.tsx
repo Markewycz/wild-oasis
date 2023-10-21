@@ -39,11 +39,11 @@ const StyledList = styled.ul<StyledListProps>`
 
   right: ${props => {
     if (!props.position) return null;
-    props.position.x;
+    return props.position.x;
   }}px;
   top: ${props => {
     if (!props.position) return null;
-    props.position.y;
+    return props.position.y;
   }}px;
 `;
 
@@ -115,12 +115,16 @@ export default function Menus({ children }: MenusProps) {
 function Toggle({ id }: ToggleProps) {
   const { openId, close, open, setPosition } = useMenusContext();
 
+  console.log(openId);
+
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
+
+    console.log(openId, id);
 
     openId === null || openId !== id ? open(id) : close();
   }

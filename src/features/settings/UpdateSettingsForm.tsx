@@ -17,7 +17,7 @@ function UpdateSettingsForm() {
   } = useSettings();
   const { updateSetting, isUpdating } = useUpdateSetting();
 
-  function handleUpdate(e, field) {
+  function handleUpdate(e: React.ChangeEvent<HTMLInputElement> , field: string) {
     const { value } = e.target;
     updateSetting({ [field]: value });
   }
