@@ -22,8 +22,6 @@ export async function deleteCabin(id: number) {
 }
 
 export async function createUpdateCabin(newCabin: Cabin, id?: number) {
-  console.log(newCabin);
-
   const hasImagePath = typeof newCabin.image === 'string';
 
   const imageName =
@@ -34,17 +32,15 @@ export async function createUpdateCabin(newCabin: Cabin, id?: number) {
     ? newCabin.image
     : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
+  let query = supabase.from('cabins');
+
   // CREATE
-  if (!id) supabase.from('cabins').insert([{ ...newCabin, image: imagePath }]);
+  if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
 
   // EDIT
-  if (id)
-    supabase
-      .from('cabins')
-      .update({ ...newCabin, image: imagePath })
-      .eq('id', id);
+  if (id) query = query.update({ ...newCabin, image: imagePath }).eq('id', id);
 
-  const { data, error } = await supabase.from('cabins').select().single();
+  const { data, error } = await query.select().single();
 
   if (error) {
     console.error(error);
