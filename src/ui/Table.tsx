@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { TableContext, useTableContext } from '../hooks/useTableContext';
-import { Cabin } from '../features/cabins/useCabins';
-import { CabinReservation } from '../features/bookings/useBookings';
+// import { Cabin } from '../features/cabins/useCabins';
+// import { CabinReservation } from '../features/bookings/useBookings';
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -71,10 +71,10 @@ type RowProps = {
   children: React.ReactNode;
 };
 
-type BodyProps = {
-  data: Cabin[] | CabinReservation[];
-  render: (data: Cabin | CabinReservation) => React.ReactNode;
-};
+// type BodyProps = {
+//   data: Cabin[] | CabinReservation[];
+//   render: (data: Cabin | CabinReservation) => 
+// };
 
 export default function Table({ columns, children }: TableProps) {
   return (
@@ -103,7 +103,7 @@ function Row({ children }: RowProps) {
   );
 }
 
-function Body({ data, render }: BodyProps) {
+function Body({ data, render }: any) {
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 

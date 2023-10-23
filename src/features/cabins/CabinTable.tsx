@@ -16,7 +16,6 @@ export default function CabinTable() {
   // 1) FILTER
   const filterValue = searchParams.get('discount') || 'all';
   let filteredCabins;
-
   if (filterValue === 'all') filteredCabins = cabins;
   if (filterValue === 'no-discount')
     filteredCabins = cabins.filter(cabin => cabin.discount === 0);
@@ -33,6 +32,11 @@ export default function CabinTable() {
 
     if (typeof fieldA === 'number' && typeof fieldB === 'number') {
       return (fieldA - fieldB) * modifier;
+    } else if (typeof fieldA === 'string' && typeof fieldB === 'string') {
+      return (
+        fieldA.localeCompare(fieldB, undefined, { sensitivity: 'base' }) *
+        modifier
+      );
     } else {
       return 0;
     }

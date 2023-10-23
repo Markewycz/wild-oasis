@@ -32,15 +32,20 @@ export async function createUpdateCabin(newCabin: Cabin, id?: number) {
     ? newCabin.image
     : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
-  let query = supabase.from('cabins');
-
-  // CREATE
-  if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
-
-  // EDIT
-  if (id) query = query.update({ ...newCabin, image: imagePath }).eq('id', id);
-
-  const { data, error } = await query.select().single();
+  // CREATE or EDIT
+  const { data, error } = await supabase
+    .from('cabins')
+    .upsert(
+      [
+        {
+          ...(id ? { id } : {}),
+          ...newCabin,
+          image: imagePath,
+        },
+      ],
+      { onConflict: 'id' }
+    )
+    .single();
 
   if (error) {
     console.error(error);
