@@ -32,7 +32,7 @@ function BookingTable() {
           )}
         />
         <Table.Footer>
-          <Pagination count={count} />
+          <Pagination count={count || 0} />
         </Table.Footer>
       </Table>
     </Menus>
