@@ -28,7 +28,7 @@ const StyledCheckbox = styled.div`
 type CheckedProps = {
   checked: boolean;
   onChange: () => void;
-  disabled: boolean;
+  disabled?: boolean;
   id: string;
   children: React.ReactNode;
 };

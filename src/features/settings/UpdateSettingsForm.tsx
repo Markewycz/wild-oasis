@@ -11,13 +11,13 @@ function UpdateSettingsForm() {
       minBookingLength,
       maxBookingLength,
       maxGuestsPerBooking,
-      breakfestPrice,
+      breakfastPrice,
     } = {},
     isLoading,
   } = useSettings();
   const { updateSetting, isUpdating } = useUpdateSetting();
 
-  function handleUpdate(e: React.ChangeEvent<HTMLInputElement> , field: string) {
+  function handleUpdate(e: React.ChangeEvent<HTMLInputElement>, field: string) {
     const { value } = e.target;
     updateSetting({ [field]: value });
   }
@@ -60,7 +60,7 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="breakfast-price"
-          defaultValue={breakfestPrice}
+          defaultValue={breakfastPrice}
           disabled={isUpdating}
           onBlur={e => handleUpdate(e, 'breakfestPrice')}
         />
