@@ -11,7 +11,7 @@ const StyledFilter = styled.div`
   gap: 0.4rem;
 `;
 
-const FilterButton = styled.button`
+const FilterButton = styled.button<StyledFilterButton>`
   background-color: var(--color-grey-0);
   border: none;
 
@@ -34,12 +34,17 @@ const FilterButton = styled.button`
   }
 `;
 
+type StyledFilterButton = {
+  active: string;
+};
+
 export default function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterField) || options.at(0).value;
 
   function handleClick(value) {
     searchParams.set(filterField, value);
+    searchParams.delete('page');
     setSearchParams(searchParams);
   }
 
