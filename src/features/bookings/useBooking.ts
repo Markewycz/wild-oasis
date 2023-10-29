@@ -48,7 +48,7 @@ export default function useBooking() {
   const { data: booking, isLoading } = useQuery({
     queryKey: ['bookings', bookingId],
     queryFn: () => {
-      if (bookingId) return getBooking(bookingId);
+      if (bookingId) return getBooking(Number(bookingId));
     },
     retry: false,
   });

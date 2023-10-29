@@ -37,7 +37,7 @@ export async function getBookings({ filter, sortBy, page }: GetBookingsProps) {
   return { data, count };
 }
 
-export async function getBooking(id: string) {
+export async function getBooking(id: number) {
   const { data, error } = await supabase
     .from('bookings')
     .select('*, cabins(*), guests(*)')
@@ -122,7 +122,6 @@ export async function updateBooking(id: number, obj: object) {
 }
 
 export async function deleteBooking(id: number) {
-  // REMEMBER RLS POLICIES
   const { data, error } = await supabase.from('bookings').delete().eq('id', id);
 
   if (error) {
