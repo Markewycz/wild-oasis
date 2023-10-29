@@ -8,8 +8,8 @@ import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { CabinReservation } from './useBookings';
 import Menus from '../../ui/Menus';
-import { HiEye } from 'react-icons/hi2';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { HiArrowDownOnSquare, HiEye } from 'react-icons/hi2';
+import { useNavigate } from 'react-router-dom';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -45,11 +45,9 @@ type BookingRowProps = {
 function BookingRow({
   booking: {
     id: bookingId,
-    created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
@@ -86,7 +84,9 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
+      <Tag type={statusToTagName[status as keyof typeof statusToTagName]}>
+        {status.replace('-', ' ')}
+      </Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
@@ -99,6 +99,13 @@ function BookingRow({
           >
             See details
           </Menus.Button>
+
+          {status === "unconfirmed" && <Menus.Button
+            icon={<HiArrowDownOnSquare />}
+            onClick={() => navigate(`/checkin/${bookingId}`)}
+          >
+            Check-in
+          </Menus.Button>}
         </Menus.List>
       </Menus.Menu>
     </Table.Row>
