@@ -10,7 +10,7 @@ export interface DetailedCabinReservation {
   extrasPrice: number;
   guestId: number;
   hasBreakfast: boolean;
-  id: string;
+  id: number;
   isPaid: boolean;
   numGuests: number;
   numNights: number;
