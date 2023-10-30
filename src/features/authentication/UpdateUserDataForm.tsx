@@ -10,19 +10,21 @@ import { useUser } from './useUser';
 import { useUpdateUser } from './useUpdateUser';
 
 function UpdateUserDataForm() {
+  const { user } = useUser();
+
+  if (!user) throw new Error("Couldn't fetch data about the user");
+
   const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
+    email,
+    user_metadata: { fullName: currentFullName },
+  } = user;
 
   const { updateUser, isUpdating } = useUpdateUser();
 
   const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState<File | null>(null);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!fullName) return;
@@ -32,7 +34,8 @@ function UpdateUserDataForm() {
       {
         onSuccess: () => {
           setAvatar(null);
-          e.target.reset();
+          const form = e.target as HTMLFormElement;
+          form.reset();
         },
       }
     );
@@ -61,7 +64,10 @@ function UpdateUserDataForm() {
         <FileInput
           id="avatar"
           accept="image/*"
-          onChange={e => setAvatar(e.target.files[0])}
+          onChange={e => {
+            if (!e.target.files) throw new Error('Invalid image');
+            setAvatar(e.target.files[0]);
+          }}
         />
       </FormRow>
       <FormRow>

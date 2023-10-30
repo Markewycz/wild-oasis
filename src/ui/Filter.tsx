@@ -35,14 +35,24 @@ const FilterButton = styled.button<StyledFilterButton>`
 `;
 
 type StyledFilterButton = {
-  active: string;
+  active: boolean;
 };
 
-export default function Filter({ filterField, options }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get(filterField) || options.at(0).value;
+interface FilterOption {
+  value: string;
+  label: string;
+}
 
-  function handleClick(value) {
+type FilterProps = {
+  filterField: string;
+  options: FilterOption[];
+};
+
+export default function Filter({ filterField, options }: FilterProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentFilter = searchParams.get(filterField) || options[0]?.value;
+
+  function handleClick(value: string) {
     searchParams.set(filterField, value);
     searchParams.delete('page');
     setSearchParams(searchParams);

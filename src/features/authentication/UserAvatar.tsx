@@ -23,6 +23,9 @@ const Avatar = styled.img`
 
 export default function UserAvatar() {
   const { user } = useUser();
+  
+  if (!user) throw new Error('Username could not be found');
+
   const { fullName, avatar } = user.user_metadata;
 
   return (

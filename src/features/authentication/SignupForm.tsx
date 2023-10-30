@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import Button from '../../ui/Button';
 import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
@@ -11,13 +11,10 @@ function SignupForm() {
   const { errors } = formState;
   const { signUp, isLoading } = useSignup();
 
-  function onSubmit({ fullName, email, password }) {
-    signUp(
-      { fullName, email, password },
-      {
-        onSettled: () => reset(),
-      }
-    );
+  function onSubmit(data: FieldValues) {
+    signUp(data, {
+      onSettled: () => reset(),
+    });
   }
 
   return (

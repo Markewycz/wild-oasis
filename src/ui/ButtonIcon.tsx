@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const ButtonIcon = styled.button`
+type StyledButtonIconProps = {
+  onClick: () => void;
+};
+
+const ButtonIcon = styled.button<StyledButtonIconProps>`
   background: none;
   border: none;
   padding: 0.6rem;

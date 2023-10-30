@@ -39,14 +39,18 @@ const Error = styled.span`
 
 type FormRowProps = {
   label?: string;
-  children: React.ReactElement;
+  children: React.ReactNode;
   error?: string | FieldError | FieldErrorsImpl | undefined;
 };
 
 export default function FormRow({ label, error, children }: FormRowProps) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children?.props?.id}>{label}</Label>}
+      {label && (
+        <Label htmlFor={(children as React.ReactElement)?.props?.id}>
+          {label}
+        </Label>
+      )}
       {children}
       {error && <Error>{error as string}</Error>}
     </StyledFormRow>

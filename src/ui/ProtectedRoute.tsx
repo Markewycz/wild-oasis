@@ -12,7 +12,11 @@ const FullPage = styled.div`
   justify-content: center;
 `;
 
-export default function ProtectedRoute({ children }) {
+type ProtectedRouteProps = {
+  children: React.ReactNode;
+};
+
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
 
   const { isLoading, isAuthenticated } = useUser();

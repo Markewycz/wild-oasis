@@ -7,7 +7,7 @@ import FormRow from '../../ui/FormRow';
 import { useCreateCabin } from './useCreateCabin';
 import { useUpdateCabin } from './useUpdateCabin';
 import { useSettings } from '../settings/useSettings';
-import { Cabin } from './CabinTable';
+import { Cabin } from './useCabins';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 
 type CabinForm = {
@@ -163,18 +163,16 @@ function CreateCabinForm({
       </FormRow>
 
       <FormRow>
-        <>
-          <Button
-            variation="secondary"
-            type="reset"
-            onClick={() => onCloseModal?.()}
-          >
-            Cancel
-          </Button>
-          <Button disabled={isWorking}>
-            {isUpdateSession ? 'Update cabin' : 'Create new cabin'}
-          </Button>
-        </>
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
+          Cancel
+        </Button>
+        <Button disabled={isWorking}>
+          {isUpdateSession ? 'Update cabin' : 'Create new cabin'}
+        </Button>
       </FormRow>
     </Form>
   );

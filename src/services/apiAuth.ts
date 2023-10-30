@@ -1,6 +1,15 @@
 import supabase, { supabaseUrl } from './supabase';
 
-export async function signUp({ fullName, email, password }) {
+type ApiAuthProps = {
+  password?: string;
+  fullName?: string;
+  email?: string;
+  avatar?: File | null;
+};
+
+export async function signUp({ fullName, email, password }: ApiAuthProps) {
+  if (!email || !password) throw new Error('Email and password are required');
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -17,7 +26,9 @@ export async function signUp({ fullName, email, password }) {
   return data;
 }
 
-export async function login({ email, password }) {
+export async function login({ email, password }: ApiAuthProps) {
+  if (!email || !password) throw new Error('Email and password are required');
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -37,6 +48,7 @@ export async function getCurrentUser() {
 
   if (error) throw new Error(error.message);
 
+  console.log(data);
   return data?.user;
 }
 
@@ -46,11 +58,17 @@ export async function logout() {
   if (error) throw new Error(error.message);
 }
 
-export async function updateCurrentUser({ password, fullName, avatar }) {
+export async function updateCurrentUser({
+  password,
+  fullName,
+  avatar,
+}: ApiAuthProps) {
   let updateData;
 
   if (password) updateData = { password };
   if (fullName) updateData = { data: { fullName } };
+
+  if (!updateData) throw new Error('Something went wrong, try again');
 
   const { data, error } = await supabase.auth.updateUser(updateData);
 
