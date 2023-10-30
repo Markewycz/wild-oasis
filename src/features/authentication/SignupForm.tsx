@@ -21,7 +21,7 @@ function SignupForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} noValidate>
       <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
           type="text"
@@ -78,8 +78,12 @@ function SignupForm() {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset" disabled={isLoading}>
+        <Button
+          variation="secondary"
+          type="reset"
+          disabled={isLoading}
+          onClick={reset}
+        >
           Cancel
         </Button>
         <Button>{!isLoading ? 'Create new user' : <SpinnerMini />}</Button>
