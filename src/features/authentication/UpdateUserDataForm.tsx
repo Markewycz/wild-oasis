@@ -11,7 +11,7 @@ import { useUpdateUser } from './useUpdateUser';
 
 function UpdateUserDataForm() {
   const { user } = useUser();
-
+  
   if (!user) throw new Error("Couldn't fetch data about the user");
 
   const {
