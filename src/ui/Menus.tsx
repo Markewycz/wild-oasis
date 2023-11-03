@@ -117,6 +117,8 @@ function Toggle({ id }: ToggleProps) {
   const { openId, close, open, setPosition } = useMenusContext();
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+
     const rect = e.currentTarget.getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
@@ -136,7 +138,8 @@ function Toggle({ id }: ToggleProps) {
 function List({ id, children }: ListProps) {
   const { openId, position, close } = useMenusContext();
 
-  const { ref } = useOutsideClick(close);
+  const { ref } = useOutsideClick(close, false);
+
   if (openId !== id) return null;
 
   return createPortal(
