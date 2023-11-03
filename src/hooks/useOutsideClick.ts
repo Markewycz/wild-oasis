@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 type HandlerType = () => void;
 
 export function useOutsideClick(handler: HandlerType, listenCapturing = true) {
-  const ref = useRef<HTMLUListElement | null>(null);
+  const ref = useRef<HTMLUListElement | HTMLDivElement | null>(null);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

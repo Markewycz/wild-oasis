@@ -3,6 +3,7 @@ import Tag from '../../ui/Tag';
 import Button from '../../ui/Button';
 import { Link } from 'react-router-dom';
 import CheckoutButton from './CheckoutButton';
+import { StaysType } from '../dashboard/useRecentStays';
 
 const StyledTodayItem = styled.li`
   display: grid;
@@ -23,7 +24,10 @@ const Guest = styled.div`
   font-weight: 500;
 `;
 
-export default function TodayItem({ activity }) {
+type TodayItemProps = {
+  activity: StaysType;
+};
+export default function TodayItem({ activity }: TodayItemProps) {
   const { id, status, guests, numNights } = activity;
   return (
     <StyledTodayItem>

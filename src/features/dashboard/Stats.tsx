@@ -6,15 +6,26 @@ import {
 } from 'react-icons/hi2';
 import Stat from './Stat';
 import { formatCurrency } from '../../utils/helpers';
+import { StaysType } from './useRecentStays';
+
+type StatsProps = {
+  bookings: {
+    created_at: string;
+    totalPrice: number;
+    extrasPrice: number;
+  }[];
+  confirmedStays: StaysType[];
+  numDays: number;
+  cabinCount: number;
+};
 
 export default function Stats({
   bookings,
   confirmedStays,
   numDays,
   cabinCount,
-}) {
+}: StatsProps) {
   const numBookings = bookings.length;
-
   const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
 
   const checkIns = confirmedStays.length;

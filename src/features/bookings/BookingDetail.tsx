@@ -16,6 +16,7 @@ import { useCheckout } from '../check-in-out/useCheckout';
 import { useDeleteBooking } from './useDeleteBooking';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import Empty from '../../ui/Empty';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -28,12 +29,13 @@ function BookingDetail() {
     booking,
     isLoading,
   }: { booking: DetailedCabinReservation; isLoading: boolean } = useBooking();
-  const { checkOut, isCheckingOut } = useCheckout();
+  const { checkout, isCheckingOut } = useCheckout();
   const { deleteBooking, isDeleting } = useDeleteBooking();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
+  if (!booking) return <Empty resourceName="bookings" />;
 
   const { status, id: bookingId } = booking;
 
@@ -65,7 +67,7 @@ function BookingDetail() {
         )}
 
         {status === 'checked-in' && (
-          <Button onClick={() => checkOut(bookingId)} disabled={isCheckingOut}>
+          <Button onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
             Check-out
           </Button>
         )}

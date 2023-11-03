@@ -143,7 +143,10 @@ function List({ id, children }: ListProps) {
   if (openId !== id) return null;
 
   return createPortal(
-    <StyledList position={position} ref={ref}>
+    <StyledList
+      position={position}
+      ref={ref as React.RefObject<HTMLUListElement>}
+    >
       {children}
     </StyledList>,
     document.body

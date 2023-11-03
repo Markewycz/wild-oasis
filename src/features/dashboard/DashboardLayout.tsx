@@ -27,6 +27,9 @@ export default function DashboardLayout() {
   if (isLoadingBookings || isLoadingStays || isLoadingCabins)
     return <Spinner />;
 
+  if (!bookings || !confirmedStays)
+    throw new Error('There was a problem while fetching data');
+
   return (
     <StyledDashboardLayout>
       <Stats

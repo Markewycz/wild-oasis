@@ -23,7 +23,16 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-export default function SalesChart({ bookings, numDays }) {
+type SalesChartProps = {
+  bookings: {
+    created_at: string;
+    totalPrice: number;
+    extrasPrice: number;
+  }[];
+  numDays: number;
+};
+
+export default function SalesChart({ bookings, numDays }: SalesChartProps) {
   const { isDarkMode } = useDarkMode();
 
   const allDates = eachDayOfInterval({
@@ -60,8 +69,8 @@ export default function SalesChart({ bookings, numDays }) {
   return (
     <StyledSalesChart>
       <Heading as="h2">
-        Sales from {format(allDates.at(0), 'MMM dd yyyy')} &mdash;{' '}
-        {format(allDates.at(-1), 'MMM dd yyyy')}
+        Sales from {format(allDates[0], 'MMM dd yyyy')} &mdash;{' '}
+        {format(allDates[allDates.length - 1], 'MMM dd yyyy')}
       </Heading>
 
       <ResponsiveContainer height={300} width="100%">
