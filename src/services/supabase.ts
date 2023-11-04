@@ -1,8 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
-export const supabaseUrl = 'https://sbociipmstesqvrjraxr.supabase.co';
-const supabaseKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNib2NpaXBtc3Rlc3F2cmpyYXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTY4ODAzNjEsImV4cCI6MjAxMjQ1NjM2MX0.aj0HYcH7MYvxnhorwwrrusAMYTohLoc6d3BX_ToJjik';
+export const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+
+if (!supabaseUrl || !supabaseKey)
+  throw new Error('There was a problem with supabase credentials');
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default supabase;

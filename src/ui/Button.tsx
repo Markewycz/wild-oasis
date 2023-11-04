@@ -59,12 +59,10 @@ const Button = styled.button<ButtonTypes>`
   box-shadow: var(--shadow-sm);
 
   ${props => {
-    if (!props.size) return;
-    return sizes[props.size];
+    return sizes[props.size || 'medium'];
   }}
   ${props => {
-    if (!props.variation) return;
-    return variations[props.variation];
+    return variations[props.variation || 'primary'];
   }}
 `;
 
