@@ -5,13 +5,14 @@ import {
   HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineHomeModern,
+  HiOutlinePlusCircle,
   HiOutlineUsers,
 } from 'react-icons/hi2';
 
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.5rem;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -19,12 +20,12 @@ const StyledNavLink = styled(NavLink)`
   &:visited {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 0.75rem;
 
     color: var(--color-grey-600);
-    font-size: 1.6rem;
+    font-size: 1rem;
     font-weight: 500;
-    padding: 1.2rem 2.4rem;
+    padding: 0.75rem 1.5rem;
     transition: all 0.3s;
   }
 
@@ -39,8 +40,8 @@ const StyledNavLink = styled(NavLink)`
   }
 
   & svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 1.5rem;
+    height: 1.5rem;
     color: var(--color-grey-400);
     transition: all 0.3s;
   }
@@ -61,6 +62,12 @@ export default function MainNav() {
           <StyledNavLink to="/dashboard">
             <HiOutlineHome />
             <span>Home</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/new-booking">
+            <HiOutlinePlusCircle />
+            <span>New booking</span>
           </StyledNavLink>
         </li>
         <li>

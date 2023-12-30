@@ -7,12 +7,12 @@ import { StaysType } from '../dashboard/useRecentStays';
 
 const StyledTodayItem = styled.li`
   display: grid;
-  grid-template-columns: 9rem 1fr 7rem 9rem;
-  gap: 1.2rem;
+  grid-template-columns: 5.625rem 1fr 4.375rem 5.625rem;
+  gap: 0.75rem;
   align-items: center;
 
-  font-size: 1.4rem;
-  padding: 0.8rem 0;
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
   border-bottom: 1px solid var(--color-grey-100);
 
   &:first-child {

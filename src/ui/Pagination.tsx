@@ -11,8 +11,8 @@ const StyledPagination = styled.div`
 `;
 
 const P = styled.p`
-  font-size: 1.4rem;
-  margin-left: 0.8rem;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
 
   & span {
     font-weight: 600;
@@ -21,7 +21,7 @@ const P = styled.p`
 
 const Buttons = styled.div`
   display: flex;
-  gap: 0.6rem;
+  gap: 0.375rem;
 `;
 
 const PaginationButton = styled.button<StyledPaginationButtonProps>`
@@ -31,26 +31,26 @@ const PaginationButton = styled.button<StyledPaginationButtonProps>`
   border: none;
   border-radius: var(--border-radius-sm);
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  padding: 0.6rem 1.2rem;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
   transition: all 0.3s;
 
   &:has(span:last-child) {
-    padding-left: 0.4rem;
+    padding-left: 0.25rem;
   }
 
   &:has(span:first-child) {
-    padding-right: 0.4rem;
+    padding-right: 0.25rem;
   }
 
   & svg {
-    height: 1.8rem;
-    width: 1.8rem;
+    height: 1.125rem;
+    width: 1.125rem;
   }
 
   &:hover:not(:disabled) {

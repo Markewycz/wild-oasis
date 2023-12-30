@@ -9,7 +9,7 @@ const StyledErrorFallback = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4.8rem;
+  padding: 3rem;
 `;
 
 const Box = styled.div`
@@ -18,17 +18,17 @@ const Box = styled.div`
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
 
-  padding: 4.8rem;
-  flex: 0 1 96rem;
+  padding: 3rem;
+  flex: 0 1 60rem;
   text-align: center;
 
   & h1 {
-    margin-bottom: 1.6rem;
+    margin-bottom: 1rem;
   }
 
   & p {
     font-family: 'Sono';
-    margin-bottom: 3.2rem;
+    margin-bottom: 1.25rem;
     color: var(--color-grey-500);
   }
 `;

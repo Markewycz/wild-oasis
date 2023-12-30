@@ -24,11 +24,11 @@ const ChartBox = styled.div`
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
 
-  padding: 2.4rem 3.2rem;
+  padding: 1.5rem 1.25rem;
   grid-column: 3 / span 2;
 
   & > *:first-child {
-    margin-bottom: 1.6rem;
+    margin-bottom: 1rem;
   }
 
   & .recharts-pie-label-text {

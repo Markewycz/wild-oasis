@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: 1.2rem;
+  gap: 0.75rem;
   justify-content: flex-end;
 `;
 

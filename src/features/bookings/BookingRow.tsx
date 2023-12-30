@@ -21,7 +21,7 @@ import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 
 const Cabin = styled.div`
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-grey-600);
   font-family: 'Sono';
@@ -30,7 +30,7 @@ const Cabin = styled.div`
 const Stacked = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.1.25rem;
 
   & span:first-child {
     font-weight: 500;
@@ -38,7 +38,7 @@ const Stacked = styled.div`
 
   & span:last-child {
     color: var(--color-grey-500);
-    font-size: 1.2rem;
+    font-size: 0.75rem;
   }
 `;
 

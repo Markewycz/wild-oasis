@@ -23,43 +23,43 @@ const StyledBookingDataBox = styled.section`
 
 const Header = styled.header`
   background-color: var(--color-brand-500);
-  padding: 2rem 4rem;
+  padding: 1.25rem 2.5rem;
   color: #e0e7ff;
-  font-size: 1.8rem;
+  font-size: 1.125rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   svg {
-    height: 3.2rem;
-    width: 3.2rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 
   & div:first-child {
     display: flex;
     align-items: center;
-    gap: 1.6rem;
+    gap: 1rem;
     font-weight: 600;
-    font-size: 1.8rem;
+    font-size: 1.125rem;
   }
 
   & span {
     font-family: 'Sono';
-    font-size: 2rem;
+    font-size: 1.25rem;
     margin-left: 4px;
   }
 `;
 
 const Section = styled.section`
-  padding: 3.2rem 4rem 1.2rem;
+  padding: 1.25rem 2.5rem 0.75rem;
 `;
 
 const Guest = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 1.6rem;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
   color: var(--color-grey-500);
 
   & p:first-of-type {
@@ -72,9 +72,9 @@ const Price = styled.div<StyledPrice>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.6rem 3.2rem;
+  padding: 1rem 1.25rem;
   border-radius: var(--border-radius-sm);
-  margin-top: 2.4rem;
+  margin-top: 1.5rem;
 
   background-color: ${props =>
     props.isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)'};
@@ -83,20 +83,20 @@ const Price = styled.div<StyledPrice>`
 
   & p:last-child {
     text-transform: uppercase;
-    font-size: 1.4rem;
+    font-size: 0.875rem;
     font-weight: 600;
   }
 
   svg {
-    height: 2.4rem;
-    width: 2.4rem;
+    height: 1.5rem;
+    width: 1.5rem;
     color: currentColor !important;
   }
 `;
 
 const Footer = styled.footer`
-  padding: 1.6rem 4rem;
-  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+  font-size: 0.75rem;
   color: var(--color-grey-500);
   text-align: right;
 `;

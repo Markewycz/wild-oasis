@@ -20,7 +20,7 @@ import Empty from '../../ui/Empty';
 
 const HeadingGroup = styled.div`
   display: flex;
-  gap: 2.4rem;
+  gap: 1.5rem;
   align-items: center;
 `;
 
