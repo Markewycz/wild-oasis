@@ -16,11 +16,21 @@ import {
 
 export function DatePickerWithRange({
   className,
+  setRange,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
+    from: new Date(),
+    to: addDays(new Date(), 7),
   });
+
+  function setRangeDate(date) {
+    setDate(date);
+    setRange(date);
+  }
+
+  React.useEffect(() => {
+    setRange(date)
+  }, [])
 
   return (
     <div className={cn('grid gap-2', className)}>
@@ -53,9 +63,10 @@ export function DatePickerWithRange({
           <Calendar
             initialFocus
             mode="range"
+            min={3}
             defaultMonth={date?.from}
             selected={date}
-            onSelect={setDate}
+            onSelect={setRangeDate}
             numberOfMonths={2}
           />
         </PopoverContent>

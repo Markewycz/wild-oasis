@@ -12,7 +12,7 @@ import {
 export function SelectNumGuests() {
   return (
     <Select>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[240px]">
         <SelectValue placeholder="Select a number of guests" />
       </SelectTrigger>
       <SelectContent>

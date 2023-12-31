@@ -1,4 +1,4 @@
-import NewBookingForm from '../features/bookings/NewBookingForm';
+import NewBookingForm from '../features/new-booking/NewBookingForm';
 import Heading from '../ui/Heading';
 import Row from '../ui/Row';
 

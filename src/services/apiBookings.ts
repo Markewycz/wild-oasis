@@ -1,3 +1,4 @@
+import { addDays, subDays } from 'date-fns';
 import { GetBookingsProps } from '../features/bookings/useBookings';
 import { PAGE_SIZE } from '../utils/constants';
 import { getToday } from '../utils/helpers';
@@ -59,6 +60,22 @@ export async function getBookingsAfterDate(date: string) {
     .select('created_at, totalPrice, extrasPrice')
     .gte('created_at', date)
     .lte('created_at', getToday({ end: true }));
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookings could not get loaded');
+  }
+
+  return data;
+}
+
+// Returns all bookings from range of days from starting date
+export async function getStaysFromRange(dateFrom: string, dateTo: string) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*')
+    .gte('startDate', dateFrom)
+    .lte('startDate', dateTo);
 
   if (error) {
     console.error(error);

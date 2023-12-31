@@ -19,9 +19,11 @@ export function DarkModeProvider({ children }: DarkModeProviderProps) {
 
   useEffect(() => {
     document.documentElement.classList.add('light-mode');
+    document.documentElement.classList.remove('dark');
     document.documentElement.classList.remove('dark-mode');
 
     if (isDarkMode) {
+      document.documentElement.classList.add('dark');
       document.documentElement.classList.add('dark-mode');
       document.documentElement.classList.remove('light-mode');
     }
