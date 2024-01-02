@@ -11,7 +11,7 @@ import {
 
 export function SelectNumGuests({ setNumGuests }) {
   return (
-    <Select onValueChange={value => setNumGuests(value)}>
+    <Select required onValueChange={value => setNumGuests(value)}>
       <SelectTrigger className="w-[240px]">
         <SelectValue placeholder="Select a number of guests" />
       </SelectTrigger>

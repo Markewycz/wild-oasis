@@ -7,6 +7,12 @@ import { useState } from 'react';
 import { useBookingsRange } from './useBookingsRange';
 import { datesFromDate } from '@/utils/helpers';
 import { useCabins } from '../cabins/useCabins';
+import Menus from '@/ui/Menus';
+import Table from '@/ui/Table';
+import CabinRow from '../cabins/CabinRow';
+import Spinner from '@/ui/Spinner';
+import { ButtonLoading } from '@/ui/ButtonLoading';
+import SpinnerMini from '@/ui/SpinnerMini';
 
 export default function NewBookingForm() {
   const [range, setRange] = useState();
@@ -53,29 +59,33 @@ export default function NewBookingForm() {
 
   return (
     <Form>
-      <div className="flex justify-between gap-2">
-        <div className="flex gap-4">
-          <DatePickerWithRange setRange={setRange} />
-          <SelectNumGuests setNumGuests={setNumGuests} />
+      <div className='flex flex-col gap-6'>
+        <div className="flex justify-between gap-2">
+          <div className="flex gap-4">
+            <DatePickerWithRange setRange={setRange} />
+            <SelectNumGuests setNumGuests={setNumGuests} />
+          </div>
+          <div className="flex gap-2">
+            <ButtonShadcn variant="outline">Reset</ButtonShadcn>
+            {!isRefetching ? (
+              <ButtonShadcn onClick={handleSearch}>Search</ButtonShadcn>
+            ) : (
+              <ButtonLoading />
+            )}
+          </div>
         </div>
-        <div className="flex gap-2">
-          <ButtonShadcn variant="outline">Reset</ButtonShadcn>
-          <ButtonShadcn onClick={handleSearch}>Search</ButtonShadcn>
-        </div>
-      </div>
 
-      {isRefetching ? (
-        <span>Loading...</span>
-      ) : (
-        <ul>
-          {freeCabins?.map(cabin => (
-            <li key={cabin.id}>
-              {/* <img src={cabin.image} /> */}
-              <span>{cabin.name}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+        {freeCabins && (
+          <Menus>
+            <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+              <Table.Body
+                data={freeCabins}
+                render={cabin => <CabinRow cabin={cabin} key={cabin.id} />}
+              />
+            </Table>
+          </Menus>
+        )}
+      </div>
     </Form>
   );
 }

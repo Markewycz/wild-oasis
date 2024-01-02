@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, differenceInDays, format } from 'date-fns';
+import { addDays, differenceInDays, format, subDays } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
@@ -22,6 +22,7 @@ export function DatePickerWithRange({
     from: new Date(),
     to: addDays(new Date(), 7),
   });
+  const disabledDays = [{ from: new Date(1999, 1, 1), to: new Date() }];
 
   function setRangeDate(date) {
     setDate(date);
@@ -78,10 +79,12 @@ export function DatePickerWithRange({
             initialFocus
             mode="range"
             min={3}
+            max={90}
             defaultMonth={date?.from}
             selected={date}
             onSelect={setRangeDate}
             numberOfMonths={2}
+            disabled={disabledDays}
           />
         </PopoverContent>
       </Popover>
