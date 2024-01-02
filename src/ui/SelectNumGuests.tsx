@@ -9,9 +9,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function SelectNumGuests() {
+export function SelectNumGuests({ setNumGuests }) {
   return (
-    <Select>
+    <Select onValueChange={value => setNumGuests(value)}>
       <SelectTrigger className="w-[240px]">
         <SelectValue placeholder="Select a number of guests" />
       </SelectTrigger>

@@ -1,4 +1,4 @@
-import { formatDistance, parseISO } from 'date-fns';
+import { addDays, format, formatDistance, parseISO } from 'date-fns';
 import { differenceInDays } from 'date-fns/esm';
 
 // We want to make this function work for both Date objects and strings (which come from Supabase)
@@ -30,3 +30,13 @@ export const formatCurrency = (value: number) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(
     value
   );
+
+export const datesFromDate = (date, numDays) => {
+  const dateArray = [];
+
+  for (let i = 0; i < numDays; i++) {
+    dateArray.push(format(addDays(new Date(date), i), 'yyyy.MM.dd'));
+  }
+
+  return dateArray;
+};

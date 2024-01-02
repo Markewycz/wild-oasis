@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, format } from 'date-fns';
+import { addDays, differenceInDays, format } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
@@ -25,12 +25,26 @@ export function DatePickerWithRange({
 
   function setRangeDate(date) {
     setDate(date);
-    setRange(date);
+    rangeDays();
+  }
+
+  function rangeDays() {
+    const dateArray = [];
+
+    if (date?.from && date?.to) {
+      const numDays = Math.abs(differenceInDays(date.from, date.to));
+
+      for (let i = 0; i < numDays + 1; i++) {
+        dateArray.push(format(addDays(new Date(date.from), i), 'yyyy.MM.dd'));
+      }
+
+      setRange({ ...date, range: dateArray });
+    }
   }
 
   React.useEffect(() => {
-    setRange(date)
-  }, [])
+    rangeDays();
+  }, [date]);
 
   return (
     <div className={cn('grid gap-2', className)}>

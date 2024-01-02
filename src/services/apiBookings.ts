@@ -1,4 +1,3 @@
-import { addDays, subDays } from 'date-fns';
 import { GetBookingsProps } from '../features/bookings/useBookings';
 import { PAGE_SIZE } from '../utils/constants';
 import { getToday } from '../utils/helpers';
