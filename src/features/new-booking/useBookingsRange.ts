@@ -1,10 +1,9 @@
 import { getStaysFromRange } from '@/services/apiBookings';
 import { RANGE_BOOKINGS } from '@/utils/constants';
-import { datesFromDate } from '@/utils/helpers';
 import { useQuery } from '@tanstack/react-query';
 import { addDays, subDays } from 'date-fns';
 
-export function useBookingsRange(date) {
+export function useBookingsRange(date: Date) {
   const dateFrom = subDays(date, RANGE_BOOKINGS).toISOString();
   const dateTo = addDays(date, RANGE_BOOKINGS).toISOString();
 

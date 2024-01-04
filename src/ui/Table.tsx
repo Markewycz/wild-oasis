@@ -71,11 +71,6 @@ type RowProps = {
   children: React.ReactNode;
 };
 
-// type BodyProps = {
-//   data: Cabin[] | CabinReservation[];
-//   render: (data: Cabin | CabinReservation) =>
-// };
-
 export default function Table({ columns, children }: TableProps) {
   return (
     <TableContext.Provider value={{ columns }}>

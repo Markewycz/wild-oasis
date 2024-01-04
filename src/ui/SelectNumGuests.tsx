@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   Select,
   SelectContent,
@@ -9,9 +7,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function SelectNumGuests({ setNumGuests }) {
+type SelectNumGuestsProps = {
+  setNumGuests: (value: string) => void;
+};
+
+export function SelectNumGuests({ setNumGuests }: SelectNumGuestsProps) {
   return (
-    <Select required onValueChange={value => setNumGuests(value)}>
+    <Select onValueChange={value => setNumGuests(value)}>
       <SelectTrigger className="w-[240px]">
         <SelectValue placeholder="Select a number of guests" />
       </SelectTrigger>
