@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   FormControl,
@@ -12,7 +11,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 
-export default function UserForm() {
+export default function CustomerInformationForm() {
   const form = useForm();
 
   return (
@@ -59,27 +58,7 @@ export default function UserForm() {
           )}
         />
       </div>
-      <FormField
-        control={form.control}
-        name="hasBreakfast"
-        render={({ field }) => (
-          <FormItem className="flex flex-row items-start space-x-3 space-y-0 p-2">
-            <FormControl>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <div className="grid gap-1.5 leading-none">
-              <FormLabel>Include breakfast?</FormLabel>
-              <p className="text-sm text-muted-foreground">
-                Additional $25 per person
-              </p>
-            </div>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      
     </Form>
   );
 }

@@ -1,34 +1,42 @@
 import 'react-calendar/dist/Calendar.css';
-import { DatePickerWithRange } from '@/ui/DatePickerWithRange';
-import { SelectNumGuests } from '@/ui/SelectNumGuests';
 import { ButtonShadcn } from '@/ui/ButtonShadcn';
 import { useState } from 'react';
 import { useBookingsRange } from './useBookingsRange';
 import { datesFromDate } from '@/utils/helpers';
 import { useCabins } from '../cabins/useCabins';
-import { ButtonLoading } from '@/ui/ButtonLoading';
-import { SkeletonLoading } from '@/ui/Skeleton';
-import FreeCabinTable from './FreeCabinTable';
-import * as z from 'zod';
-import UserForm from './UserForm';
 
-// const formSchema = z.object({
-//   startDate,
-//   endDate,
-//   numGuests,
-//   cabinId,
-// });
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import GeneralInformationForm from './GeneralInformationForm';
+import CustomerInformationForm from './CustomerInformationForm';
+import Summary from './Summary';
+
+const FORM_STATE = {
+  selectedIndex: 0,
+  steps: {
+    general: {
+      values: {},
+    },
+    customer: {
+      values: {},
+    },
+    summary: {
+      values: {},
+    },
+  },
+};
 
 export default function NewBookingForm() {
-  const [range, setRange] = useState();
-  const [numGuests, setNumGuests] = useState();
+  const [form, setForm] = useState(FORM_STATE);
+  const [searchArgs, setSearchArgs] = useState({});
+
   const { bookings, isLoading, isRefetching, refetch } = useBookingsRange(
-    range ? range?.from : new Date()
+    new Date()
   );
+
   const { cabins } = useCabins();
   const [freeCabins, setFreeCabins] = useState();
   const [selectedCabin, setSelectedCabin] = useState(null);
-  const [nextStep, setNextStep] = useState(false);
+  console.log(searchArgs);
 
   function getAvailableCabins() {
     // 1) Get all cabin id's
@@ -48,9 +56,11 @@ export default function NewBookingForm() {
             return !(new Date(booking.endDate) < new Date());
           })
           .filter(booking => {
-            const isDateInRange = range?.range?.some(selectedDate => {
-              return booking.rangeDays.includes(selectedDate);
-            });
+            const isDateInRange = searchArgs?.rangeDate.rangeDays.some(
+              selectedDate => {
+                return booking.rangeDays.includes(selectedDate);
+              }
+            );
             return isDateInRange;
           })
           .map(booking => booking.cabinId)
@@ -65,62 +75,48 @@ export default function NewBookingForm() {
     // 5) Using availableCabinId's get corresponding cabin objects
     const availableCabins = cabins.filter(cabin => {
       return (
-        availableCabinsId.includes(cabin.id) && numGuests <= cabin.maxCapacity
+        availableCabinsId.includes(cabin.id) &&
+        searchArgs.numGuests <= cabin.maxCapacity
       );
     });
 
     // 6) Set FreeCabins to State
     setFreeCabins(availableCabins);
+    console.log(availableCabins);
   }
 
-  function handleSearch(e) {
-    e.preventDefault();
-
+  function handleSearch(e: React.MouseEvent<HTMLButtonElement>) {
     refetch();
     getAvailableCabins();
   }
 
-  function handleNextStep(e) {
-    e.preventDefault();
-    setNextStep(true);
-  }
-
   return (
     <div className="flex flex-col gap-6 bg-white dark:bg-accent px-10 py-6 rounded-md border border-border2 dark:border-border">
-      <div className="flex gap-4">
-        <DatePickerWithRange setRange={setRange} />
-        <SelectNumGuests setNumGuests={setNumGuests} />
-      </div>
-
-      {isRefetching && (
-        <>
-          <SkeletonLoading />
-          <SkeletonLoading />
-          <SkeletonLoading />
-          <SkeletonLoading />
-        </>
-      )}
-
-      {!isRefetching && freeCabins && (
-        <FreeCabinTable
-          freeCabins={freeCabins}
-          setSelectedCabin={setSelectedCabin}
-        />
-      )}
-
-      {nextStep && <UserForm />}
-
-      <div className="flex gap-2">
-        <ButtonShadcn variant="outline">Reset</ButtonShadcn>
-
-        {!isRefetching && !selectedCabin && (
-          <ButtonShadcn onClick={handleSearch}>Search</ButtonShadcn>
-        )}
-        {!isRefetching && selectedCabin && (
-          <ButtonShadcn onClick={handleNextStep}>Next</ButtonShadcn>
-        )}
-        {isRefetching && <ButtonLoading />}
-      </div>
+      <Tabs defaultValue="general" className="">
+        <TabsList>
+          <TabsTrigger value="general">General</TabsTrigger>
+          <TabsTrigger value="customer">Customer information</TabsTrigger>
+          <TabsTrigger value="summary">Summary</TabsTrigger>
+        </TabsList>
+        <TabsContent value="general">
+          <GeneralInformationForm
+            isRefetching={isRefetching}
+            setSelectedCabin={setSelectedCabin}
+            freeCabins={freeCabins}
+            selectedCabin={selectedCabin}
+            handleSearch={handleSearch}
+            setForm={setForm}
+            setSearchArgs={setSearchArgs}
+          />
+        </TabsContent>
+        <TabsContent value="customer">
+          <CustomerInformationForm />
+        </TabsContent>
+        <TabsContent value="summary">
+          <Summary />
+        </TabsContent>
+      </Tabs>
+      <ButtonShadcn onClick={() => console.log(form)}>Form</ButtonShadcn>
     </div>
   );
 }
