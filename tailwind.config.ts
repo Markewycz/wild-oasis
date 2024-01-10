@@ -21,8 +21,10 @@ const config = {
       colors: {
         border: 'hsl(var(--border))',
         border2: 'hsl(var(--border2))',
+        border3: 'hsl(var(--border3))',
         input: 'hsl(var(--input))',
         input2: 'hsl(var(--input2))',
+        input3: 'hsl(var(--input3))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

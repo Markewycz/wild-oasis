@@ -7,12 +7,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function SelectNumGuests({ field, setSearchArgs }) {
+export function SelectNumGuests({ field, setSearchArgs, isInputChanged }) {
   return (
     <Select
       onValueChange={value => {
         field.onChange(value);
         setSearchArgs(prev => ({ ...prev, numGuests: value }));
+        isInputChanged();
       }}
       value={field.value}
     >

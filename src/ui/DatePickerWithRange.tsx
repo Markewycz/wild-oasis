@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/popover';
 import { FormControl } from '@/components/ui/form';
 
-export function DatePickerWithRange({ field, setSearchArgs }) {
+export function DatePickerWithRange({ field, setSearchArgs, isInputChanged }) {
   // const [date, setDate] = React.useState<DateRange | undefined>({
   //   from: new Date(),
   //   to: addDays(new Date(), 7),
@@ -89,6 +89,7 @@ export function DatePickerWithRange({ field, setSearchArgs }) {
                   ...prev,
                   rangeDate: { value, rangeDays },
                 }));
+                isInputChanged();
               }
             }}
             numberOfMonths={2}
