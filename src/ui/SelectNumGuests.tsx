@@ -18,7 +18,9 @@ export function SelectNumGuests({ field, setSearchArgs, isInputChanged }) {
       value={field.value}
     >
       <SelectTrigger
-        className={`w-[240px] ${!field.value && 'text-muted-foreground'}`}
+        className={`w-[240px] dark:shadow-old-md ${
+          !field.value && 'text-muted-foreground'
+        }`}
       >
         <SelectValue placeholder="Select a number of guests" />
       </SelectTrigger>

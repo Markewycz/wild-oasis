@@ -16,16 +16,7 @@ import {
 import { FormControl } from '@/components/ui/form';
 
 export function DatePickerWithRange({ field, setSearchArgs, isInputChanged }) {
-  // const [date, setDate] = React.useState<DateRange | undefined>({
-  //   from: new Date(),
-  //   to: addDays(new Date(), 7),
-  // });
   const disabledDays = [{ from: new Date(1999, 1, 1), to: new Date() }];
-
-  // function setRangeDate(date) {
-  //   setDate(date);
-  //   rangeDays();
-  // }
 
   function calcRangeDays(value) {
     const dateArray = [];
@@ -40,10 +31,6 @@ export function DatePickerWithRange({ field, setSearchArgs, isInputChanged }) {
     return dateArray;
   }
 
-  // React.useEffect(() => {
-  //   rangeDays();
-  // }, [date]);
-
   return (
     <div className={cn('grid gap-2')}>
       <Popover>
@@ -53,7 +40,7 @@ export function DatePickerWithRange({ field, setSearchArgs, isInputChanged }) {
               id="date"
               variant={'outline'}
               className={cn(
-                'w-[300px] justify-start text-left font-normal',
+                'w-[300px] justify-start text-left font-normal dark:shadow-old-md',
                 !field.value && 'text-muted-foreground'
               )}
             >

@@ -9,10 +9,15 @@ import {
   Form,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { ButtonShadcn } from '@/ui/ButtonShadcn';
 import { useForm } from 'react-hook-form';
 
-export default function CustomerInformationForm() {
+export default function CustomerInformationForm({setStep}) {
   const form = useForm();
+
+  function prevStep() {
+    setStep('1');
+  }
 
   return (
     <Form {...form}>
@@ -58,7 +63,8 @@ export default function CustomerInformationForm() {
           )}
         />
       </div>
-      
+
+      <ButtonShadcn onClick={prevStep}>Back</ButtonShadcn>
     </Form>
   );
 }

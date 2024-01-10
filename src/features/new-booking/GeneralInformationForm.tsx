@@ -19,7 +19,7 @@ import { useCabins } from '../cabins/useCabins';
 import { useBookingsRange } from './useBookingsRange';
 import { datesFromDate } from '@/utils/helpers';
 
-export default function GeneralInformationForm({ setFormState, formState }) {
+export default function GeneralInformationForm({ setFormState, setStep }) {
   const defaultValues = {
     dateRange: '',
     numGuests: '',
@@ -103,7 +103,19 @@ export default function GeneralInformationForm({ setFormState, formState }) {
     }));
   }
 
-  function nextStep() {}
+  function nextStep() {
+    setFormState(formState => ({
+      ...formState,
+      steps: {
+        ...formState.steps,
+        general: {
+          ...formState.steps.general,
+          values: form.getValues(),
+        },
+      },
+    }));
+    setStep('2');
+  }
 
   function resetForm() {
     form.reset();

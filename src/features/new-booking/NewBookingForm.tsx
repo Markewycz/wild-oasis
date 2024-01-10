@@ -25,27 +25,28 @@ const FORM_STATE = {
 
 export default function NewBookingForm() {
   const [formState, setFormState] = useState(FORM_STATE);
+  const [step, setStep] = useState('1');
 
   return (
-    <div className="flex flex-col gap-6 bg-white dark:bg-accent px-10 py-6 rounded-md border border-border2 dark:border-border">
-      <Tabs defaultValue="general" className="">
+    <div className="flex flex-col gap-6 bg-white dark:bg-background px-10 py-6 rounded-md border border-border2 dark:border-border">
+      <Tabs defaultValue="1" value={step} className="">
         <TabsList>
-          <TabsTrigger value="general">General</TabsTrigger>
+          <TabsTrigger value="1">General</TabsTrigger>
           <CaretRightIcon />
-          <TabsTrigger value="customer">Customer information</TabsTrigger>
+          <TabsTrigger value="2">Customer information</TabsTrigger>
           <CaretRightIcon />
-          <TabsTrigger value="summary">Summary</TabsTrigger>
+          <TabsTrigger value="3">Summary</TabsTrigger>
         </TabsList>
-        <TabsContent value="general">
+        <TabsContent value="1">
           <GeneralInformationForm
             setFormState={setFormState}
-            formState={formState}
+            setStep={setStep}
           />
         </TabsContent>
-        <TabsContent value="customer">
-          <CustomerInformationForm />
+        <TabsContent value="2">
+          <CustomerInformationForm setStep={setStep} />
         </TabsContent>
-        <TabsContent value="summary">
+        <TabsContent value="3">
           <Summary />
         </TabsContent>
       </Tabs>
