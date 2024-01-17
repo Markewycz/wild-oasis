@@ -4,10 +4,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 export function useCreateGuest() {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(guest => createGuest(guest), {
-    mutationKey: ['guests'],
-    onSuccess: () => queryClient.invalidateQueries(['guests']),
-  });
+  const { mutate, isLoading: isCreatingGuests } = useMutation(
+    guest => createGuest(guest),
+    {
+      mutationKey: ['guests'],
+      onSuccess: () => queryClient.invalidateQueries(['guests']),
+    }
+  );
 
-  return { mutate, isLoading };
+  return { mutate, isCreatingGuests };
 }

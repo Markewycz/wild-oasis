@@ -52,7 +52,7 @@ export default function NewBookingForm() {
           <Summary />
         </TabsContent>
       </Tabs>
-      <ButtonShadcn onClick={() => console.log(formState)}>Form</ButtonShadcn>
+      {/* <ButtonShadcn onClick={() => console.log(formState)}>Form</ButtonShadcn> */}
     </div>
   );
 }
