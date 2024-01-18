@@ -112,17 +112,13 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
 
   const prevStep = () => setStep('1');
   const nextStep = () => {
-    setStep('3');
     setFormState(formState => ({
       ...formState,
-      steps: {
-        ...formState.steps,
-        customer: {
-          ...formState.steps.customer,
-          values: form.getValues(),
-        },
+      customer: {
+        ...form.getValues(),
       },
     }));
+    setStep('3');
   };
 
   return (

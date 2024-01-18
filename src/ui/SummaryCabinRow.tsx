@@ -1,9 +1,6 @@
+import { formatCurrency } from '@/utils/helpers';
+import Table from './Table';
 import styled from 'styled-components';
-import { Label } from '@radix-ui/react-label';
-import { formatCurrency } from '../../utils/helpers';
-import Table from '../../ui/Table';
-import { Cabin as CabinType } from '../cabins/useCabins';
-import { RadioGroupItem } from '@/components/ui/radio-group';
 
 const Img = styled.img<{ src: string | File }>`
   display: block;
@@ -32,11 +29,7 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-type FreeCabinRowProps = {
-  cabin: CabinType;
-};
-
-export default function FreeCabinRow({ cabin }: FreeCabinRowProps) {
+export default function SummaryCabinRow({ cabin }) {
   const {
     id: cabinId,
     name,
@@ -58,15 +51,6 @@ export default function FreeCabinRow({ cabin }: FreeCabinRowProps) {
       ) : (
         <span>&mdash;</span>
       )}
-
-      <div className="flex items-center justify-end space-x-2">
-        <Label
-          htmlFor={name}
-          className="px-1 py-1 shadow flex items-center border cursor-pointer rounded-md hover:bg-accent [&:has([data-state=checked])]:bg-primary"
-        >
-          <RadioGroupItem value={cabin} id={name} />
-        </Label>
-      </div>
     </Table.Row>
   );
 }

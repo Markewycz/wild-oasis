@@ -2,14 +2,6 @@ import Table from '@/ui/Table';
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import FreeCabinRow from './FreeCabinRow';
 import { Cabin } from '../cabins/useCabins';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Checkbox } from '@/components/ui/checkbox';
 
 type FreeCabinTableProps = {
   setSelectedCabin: (e: string) => void;

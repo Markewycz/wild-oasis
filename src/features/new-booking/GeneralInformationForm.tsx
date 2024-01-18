@@ -83,35 +83,20 @@ export default function GeneralInformationForm({ setFormState, setStep }) {
 
     // 6) Set FreeCabins to State
     setFreeCabins(availableCabins);
-    console.log(availableCabins);
   }
 
   function onSearch() {
     refetch();
     getAvailableCabins();
-
     setInputChanged(false);
-    setFormState(formState => ({
-      ...formState,
-      steps: {
-        ...formState.steps,
-        general: {
-          ...formState.steps.general,
-          values: form.getValues(),
-        },
-      },
-    }));
   }
 
   function nextStep() {
     setFormState(formState => ({
       ...formState,
-      steps: {
-        ...formState.steps,
-        general: {
-          ...formState.steps.general,
-          values: form.getValues(),
-        },
+      general: {
+        ...form.getValues(),
+        cabin: selectedCabin,
       },
     }));
     setStep('2');
