@@ -28,11 +28,11 @@ export default function NewBookingForm() {
 
   return (
     <div className="flex flex-col gap-6 bg-white dark:bg-background px-10 py-6 rounded-md border border-border2 dark:border-border">
-      <Tabs value={'2'} className="">
+      <Tabs value={step}>
         <TabsList>
           <TabsTrigger value="1">General</TabsTrigger>
           <CaretRightIcon />
-          <TabsTrigger value="2">Customer information</TabsTrigger>
+          <TabsTrigger value="2">Guest information</TabsTrigger>
           <CaretRightIcon />
           <TabsTrigger value="3">Summary</TabsTrigger>
         </TabsList>
@@ -52,7 +52,7 @@ export default function NewBookingForm() {
           <Summary />
         </TabsContent>
       </Tabs>
-      {/* <ButtonShadcn onClick={() => console.log(formState)}>Form</ButtonShadcn> */}
+      <ButtonShadcn onClick={() => console.log(formState)}>Form</ButtonShadcn>
     </div>
   );
 }

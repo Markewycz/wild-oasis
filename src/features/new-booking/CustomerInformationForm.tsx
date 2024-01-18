@@ -7,11 +7,9 @@ import {
   Form,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ButtonShadcn } from '@/ui/ButtonShadcn';
 import { useForm } from 'react-hook-form';
 import { useGuests } from './useGuests';
 import { useCreateGuest } from './useCreateGuest';
-import SelectCountries from '@/ui/SelectCountries';
 import {
   Popover,
   PopoverContent,
@@ -34,17 +32,18 @@ import {
 import { useSortedCountries } from './useSortedCountries';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function CustomerInformationForm({ setStep, setFormState }) {
   const { guests, isLoadingGuests } = useGuests();
   const { mutate, isCreatingGuests } = useCreateGuest();
-  const { sortedCountries, isLoadingCountries } = useSortedCountries();
+  const { sortedCountries } = useSortedCountries();
 
   const [isFoundGuest, setIsFoundGuest] = useState<boolean | undefined>(
     undefined
   );
-  const [foundGuestValidation, setFoundGuestValidation] = useState(undefined);
+  const [foundGuest, setFoundGuest] = useState(undefined);
+
   const form = useForm({
     defaultValues: {
       nationalID: '',
@@ -54,25 +53,19 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
     },
   });
 
-  //! ZMIENIC PROCES DRUGIEGO FORMULARZA
-  //? NATIONALID -> SZUKA W BAZIE DANYCH ->
-  //? A) 1. WRZUCA ISTNIEJACEGO UZYTKOWNIKA DO FIELDSOW
-  //?    2. GDY CHCESZ DOKONAC JAKIEJS ZMIANY W ISTNIEJACYCH DANYCH { POPUP } Z AKCEPTACJA ZMIAN
-  //? B) 1. GDY GUEST NIE ISTNIEJE ZOSTAWIA PUSTE POLA
-  //?    2. WPROWADZASZ DANE
-  //?    3. WALIDACJA, JAK GIT TO TWORZYSZ UZYTNIKA
-
-  function handleCheck() {
-    createUser();
-  }
-
-  function createUser() {
-    const newGuest = { ...form.getValues() };
-
-    if (!foundGuestValidation && form.formState.isValid) {
-      // mutate(newGuest);
+  const createUser = () => {
+    if (!foundGuest && form.formState.isValid) {
+      const newGuest = { ...form.getValues() };
+      mutate(newGuest);
     }
-  }
+  };
+
+  const handleCheck = async () => {
+    const _ = form.formState.errors;
+    await form.trigger();
+    createUser();
+    nextStep();
+  };
 
   const isGuestInDatabase = async e => {
     e.preventDefault();
@@ -90,6 +83,7 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
       if (!foundGuest) resetGuestCredentials();
 
       setIsFoundGuest(!!foundGuest);
+      setFoundGuest(foundGuest);
     }
   };
 
@@ -134,11 +128,12 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleCheck)}>
-        <div>
+        <div className="space-y-6">
           <div className="flex">
             <FormField
               control={form.control}
               name="nationalID"
+              disabled={isCreatingGuests}
               rules={{
                 required: 'National ID is required',
                 pattern: {
@@ -159,7 +154,7 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
                         <Button
                           size="icon"
                           onClick={isGuestInDatabase}
-                          disabled={isLoadingGuests}
+                          disabled={isLoadingGuests || isCreatingGuests}
                           className="bg-primary hover:bg-primary-hover"
                         >
                           {!isLoadingGuests ? (
@@ -182,6 +177,7 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
               <FormField
                 control={form.control}
                 name="fullName"
+                disabled={isCreatingGuests}
                 rules={{
                   required: 'Full name is required',
                 }}
@@ -199,6 +195,7 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
               <FormField
                 control={form.control}
                 name="email"
+                disabled={isCreatingGuests}
                 rules={{
                   required: 'Email is required',
                   pattern: {
@@ -219,6 +216,7 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
               <FormField
                 control={form.control}
                 name="nationality"
+                disabled={isCreatingGuests}
                 rules={{
                   required: 'Nationality is required',
                 }}
@@ -288,14 +286,16 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
         </div>
 
         <div className="flex gap-2 mt-6">
-          <ButtonShadcn variant="outline" onClick={prevStep}>
+          <Button
+            disabled={isCreatingGuests}
+            variant="outline"
+            onClick={prevStep}
+          >
             Back
-          </ButtonShadcn>
-          <ButtonShadcn onClick={() => console.log(form.getValues())}>
+          </Button>
+          <Button disabled={isCreatingGuests} type="submit">
             Next
-          </ButtonShadcn>
-          <ButtonShadcn type="submit">submit</ButtonShadcn>
-          {/* <ButtonShadcn onClick={handleCheck}>check guest</ButtonShadcn> */}
+          </Button>
         </div>
       </form>
     </Form>
