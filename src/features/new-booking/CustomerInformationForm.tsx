@@ -36,7 +36,7 @@ import { useState } from 'react';
 
 export default function CustomerInformationForm({ setStep, setFormState }) {
   const { guests, isLoadingGuests } = useGuests();
-  const { mutate, isCreatingGuests } = useCreateGuest();
+  const { mutateAsync, isCreatingGuests, isSuccess } = useCreateGuest();
   const { sortedCountries } = useSortedCountries();
 
   const [isFoundGuest, setIsFoundGuest] = useState<boolean | undefined>(
@@ -53,17 +53,24 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
     },
   });
 
-  const createUser = () => {
+  const createUser = async () => {
     if (!foundGuest && form.formState.isValid) {
       const newGuest = { ...form.getValues() };
-      mutate(newGuest);
+      await mutateAsync(newGuest);
     }
   };
 
   const handleCheck = async () => {
     const _ = form.formState.errors;
     await form.trigger();
-    createUser();
+    await createUser().then(() => console.log(guests));
+
+    setFormState(formState => ({
+      ...formState,
+      customer: {
+        ...form.getValues(),
+      },
+    }));
     nextStep();
   };
 
@@ -111,15 +118,34 @@ export default function CustomerInformationForm({ setStep, setFormState }) {
   };
 
   const prevStep = () => setStep('1');
+
+  // const saveFormState = () => {
+  //   setFormState(formState => ({
+  //     ...formState,
+  //     customer: {
+  //       ...form.getValues(),
+  //     },
+  //   }));
+  // };
+
   const nextStep = () => {
-    setFormState(formState => ({
-      ...formState,
-      customer: {
-        ...form.getValues(),
-      },
-    }));
     setStep('3');
   };
+
+  // const handleForm = () => {
+  //   setFormState(formState => ({
+  //     ...formState,
+  //     customer: {
+  //       ...form.getValues(),
+  //     },
+  //   }));
+  //   setStep('3');
+  // };
+
+  // const handleForm = () => {
+  //   saveFormState();
+  //   nextStep();
+  // };
 
   return (
     <Form {...form}>

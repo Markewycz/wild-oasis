@@ -11,6 +11,20 @@ export async function getGuests() {
   return data;
 }
 
+export async function getGuestByNationalID(nationalID: number) {
+  const { data, error } = await supabase
+    .from('guests')
+    .select('*')
+    .eq('nationalID', nationalID);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Guests could not be created');
+  }
+
+  return data;
+}
+
 export async function createGuest(guest) {
   const { data, error } = await supabase
     .from('guests')

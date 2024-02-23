@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 export default function SummaryCheckbox({ value }) {
   return (
     <div className="items-top flex space-x-2">
-      <Checkbox id={value} disabled />
+      <Checkbox id={value} checked={value} disabled />
       <div className="grid gap-1.5 leading-none">
         <Label
           htmlFor={value}

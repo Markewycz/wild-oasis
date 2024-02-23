@@ -14,12 +14,16 @@ import { useForm } from 'react-hook-form';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { ButtonShadcn } from '@/ui/ButtonShadcn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCabins } from '../cabins/useCabins';
 import { useBookingsRange } from './useBookingsRange';
 import { datesFromDate } from '@/utils/helpers';
 
-export default function GeneralInformationForm({ setFormState, setStep }) {
+export default function GeneralInformationForm({
+  setFormState,
+  setStep,
+  formState,
+}) {
   const defaultValues = {
     dateRange: '',
     numGuests: '',
@@ -114,6 +118,13 @@ export default function GeneralInformationForm({ setFormState, setStep }) {
     setSelectedCabin(null);
     form.resetField('hasBreakfast');
   }
+
+  function retrieveDataFromState() {
+    form.setValue('dateRange', formState.dateRange);
+    form.setValue('numGuests', formState.numGuests);
+  }
+
+  useEffect(() => {}, []);
 
   return (
     <Form {...form}>
