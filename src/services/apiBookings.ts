@@ -68,6 +68,22 @@ export async function getBookingsAfterDate(date: string) {
   return data;
 }
 
+// Returns all bookings from range of days from starting date
+export async function getStaysFromRange(dateFrom: string, dateTo: string) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*')
+    .gte('startDate', dateFrom)
+    .lte('startDate', dateTo);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookings could not get loaded');
+  }
+
+  return data;
+}
+
 // Returns all STAYS that are were created after the given date
 export async function getStaysAfterDate(date: string) {
   const { data, error } = await supabase
@@ -122,5 +138,19 @@ export async function deleteBooking(id: number) {
     console.error(error);
     throw new Error('Booking could not be deleted');
   }
+  return data;
+}
+
+export async function createBooking(newBooking) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .insert(newBooking)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be deleted');
+  }
+
   return data;
 }

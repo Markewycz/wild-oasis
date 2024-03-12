@@ -12,7 +12,7 @@ import Menus from '../../ui/Menus';
 
 const Img = styled.img<{ src: string }>`
   display: block;
-  width: 6.4rem;
+  width: 4rem;
   aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: center;
@@ -20,7 +20,7 @@ const Img = styled.img<{ src: string }>`
 `;
 
 const Cabin = styled.div`
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-grey-600);
   font-family: 'Sono';

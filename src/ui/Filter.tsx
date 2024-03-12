@@ -6,9 +6,9 @@ const StyledFilter = styled.div`
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-sm);
   border-radius: var(--border-radius-sm);
-  padding: 0.4rem;
+  padding: 0.25rem;
   display: flex;
-  gap: 0.4rem;
+  gap: 0.25rem;
 `;
 
 const FilterButton = styled.button<StyledFilterButton>`
@@ -24,8 +24,8 @@ const FilterButton = styled.button<StyledFilterButton>`
 
   border-radius: var(--border-radius-sm);
   font-weight: 500;
-  font-size: 1.4rem;
-  padding: 0.44rem 0.8rem;
+  font-size: 0.875rem;
+  padding: 0.44rem 0.5rem;
   transition: all 0.3s;
 
   &:hover:not(:disabled) {

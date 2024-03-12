@@ -33,8 +33,8 @@ const GlobalStyles = createGlobalStyle`
     --backdrop-color: rgba(255, 255, 255, 0.1);
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
+    --shadow-md: 0px 0.375rem 1.5rem rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 1.5rem 1.25rem rgba(0, 0, 0, 0.12);
   }
 
   &.dark-mode {
@@ -68,8 +68,8 @@ const GlobalStyles = createGlobalStyle`
     --backdrop-color: rgba(0, 0, 0, 0.3);
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
+    --shadow-md: 0px 0.375rem 1.5rem rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 1.5rem 1.25rem rgba(0, 0, 0, 0.4);
 
     --image-grayscale: 10%;
     --image-opacity: 90%;
@@ -108,7 +108,7 @@ const GlobalStyles = createGlobalStyle`
 }
 
 html {
-  font-size: 62.5%;
+  /* font-size: 62.5%; */
 }
 
 body {
@@ -118,7 +118,7 @@ body {
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   line-height: 1.5;
-  font-size: 1.6rem;
+  /* font-size: 1rem; */
 }
 
 input,
@@ -151,7 +151,6 @@ select:focus {
   outline-offset: -1px;
 }
 
-/* Parent selector, finally 😃 */
 button:has(svg) {
   line-height: 0;
 }

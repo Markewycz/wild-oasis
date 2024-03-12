@@ -7,7 +7,7 @@ type StyledButtonIconProps = {
 const ButtonIcon = styled.button<StyledButtonIconProps>`
   background: none;
   border: none;
-  padding: 0.6rem;
+  padding: 0.375rem;
   border-radius: var(--border-radius-sm);
   transition: all 0.2s;
 
@@ -16,8 +16,8 @@ const ButtonIcon = styled.button<StyledButtonIconProps>`
   }
 
   & svg {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 1.375rem;
+    height: 1.375rem;
     color: var(--color-brand-600);
   }
 `;

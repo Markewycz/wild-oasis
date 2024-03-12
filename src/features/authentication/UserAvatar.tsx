@@ -3,17 +3,16 @@ import { useUser } from './useUser';
 
 const StyledUserAvatar = styled.div`
   display: flex;
-  gap: 1.2rem;
+  gap: 0.75rem;
   align-items: center;
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
   color: var(--color-grey-600);
 `;
 
 const Avatar = styled.img`
   display: block;
-  width: 4rem;
-  width: 3.6rem;
+  width: 2.25rem;
   aspect-ratio: 1;
   object-fit: cover;
   object-position: center;
@@ -23,7 +22,7 @@ const Avatar = styled.img`
 
 export default function UserAvatar() {
   const { user } = useUser();
-  
+
   if (!user) throw new Error('Username could not be found');
 
   const { fullName, avatar } = user.user_metadata;

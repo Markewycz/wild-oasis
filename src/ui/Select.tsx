@@ -3,8 +3,8 @@ import { Option } from './SortBy';
 import { ChangeEvent } from 'react';
 
 const StyledSelect = styled.select<StyledSelectProps>`
-  font-size: 1.4rem;
-  padding: 0.8rem 1.2rem;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
   border: 1px solid
     ${props =>
       props.type === 'white'

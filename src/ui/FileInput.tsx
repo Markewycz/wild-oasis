@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 const FileInput = styled.input.attrs({ type: 'file' })`
-  font-size: 1.4rem;
+  font-size: 0.875rem;
   border-radius: var(--border-radius-sm);
 
   &::file-selector-button {
     font: inherit;
     font-weight: 500;
-    padding: 0.8rem 1.2rem;
-    margin-right: 1.2rem;
+    padding: 0.5rem 0.75rem;
+    margin-right: 0.75rem;
     border-radius: var(--border-radius-sm);
     border: none;
     color: var(--color-brand-50);

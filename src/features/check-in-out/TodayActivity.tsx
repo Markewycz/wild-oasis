@@ -11,12 +11,12 @@ const StyledToday = styled.div`
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
 
-  padding: 3.2rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 1.5rem;
   grid-column: 1 / span 2;
-  padding-top: 2.4rem;
+  padding-top: 1.5rem;
 `;
 
 const TodayList = styled.ul`
@@ -32,9 +32,9 @@ const TodayList = styled.ul`
 
 const NoActivity = styled.p`
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.125rem;
   font-weight: 500;
-  margin-top: 0.8rem;
+  margin-top: 0.5rem;
 `;
 
 function TodayActivity() {

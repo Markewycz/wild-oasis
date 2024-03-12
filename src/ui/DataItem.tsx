@@ -3,19 +3,19 @@ import styled from 'styled-components';
 const StyledDataItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.6rem;
-  padding: 0.8rem 0;
+  gap: 1rem;
+  padding: 0.5rem 0;
 `;
 
 const Label = styled.span`
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.5rem;
   font-weight: 500;
 
   & svg {
-    width: 2rem;
-    height: 2rem;
+    width: 1.25rem;
+    height: 1.25rem;
     color: var(--color-brand-600);
   }
 `;

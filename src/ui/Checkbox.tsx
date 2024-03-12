@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 const StyledCheckbox = styled.div`
   display: flex;
-  gap: 1.6rem;
+  gap: 1rem;
 
   & input[type='checkbox'] {
-    height: 2.4rem;
-    width: 2.4rem;
+    height: 1.5rem;
+    width: 1.5rem;
     outline-offset: 2px;
     transform-origin: 0;
     accent-color: var(--color-brand-600);
@@ -21,7 +21,7 @@ const StyledCheckbox = styled.div`
 
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.5rem;
   }
 `;
 
